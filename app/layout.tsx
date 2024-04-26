@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from '@clerk/nextjs'
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/shared/Navbar";
+import ThemeProvider from "@/context/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +19,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ClerkProvider 
+         appearance={{
+          elements:{
+            formButtonPrimary:"primary"
+          }
+         }}>
+         <ThemeProvider>
+          {children}
+          </ThemeProvider>
+        </ClerkProvider>
+      </body>
     </html>
   );
 }
